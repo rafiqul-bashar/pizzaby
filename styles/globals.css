@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .counter {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+  }
+  .arrowContainer {
+    @apply absolute top-0 bottom-0 z-10 m-auto h-[20%] w-[10%] cursor-pointer;
+  }
+  .productSize {
+    position: absolute;
+    top: -5px;
+    right: -20px;
+    @apply rounded-lg bg-teal-500 px-1 text-xs text-white;
+  }
+  .checkbox {
+    @apply mr-1 h-[25px] w-[25px] md:h-[20px] md:w-[20px];
+  }
+
+  .orderDone {
+    @apply flex flex-col items-center;
+  }
+  .orderInProgress {
+    @apply flex animate-pulse flex-col items-center;
+  }
+  .orderUndone {
+    @apply flex flex-col items-center opacity-[0.3];
+  }
+  .orderUndone .checked,
+  .orderInProgress .checked {
+    @apply hidden;
+  }
+}
+
+@layer components {
+  table {
+    border-spacing: -20px;
+  }
+}
