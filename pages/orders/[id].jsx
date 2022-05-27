@@ -1,7 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
-export default function Orders() {
-    const status = 0
+import axios from 'axios';
+export default function Orders({ order }) {
+    const status = order.status;
+    console.log(order);
     const statusClass = index => {
         if (index - status < 1) return "orderDone"
         if (index - status === 1) return "orderInProgress"
@@ -20,25 +22,28 @@ export default function Orders() {
                                 <th>Total</th>
                             </tr>
                         </thead>
-                        <tr className='flex flex-col md:table-row pb-8 md:pb-0 '>
-                            <td>
-                                <span className='md:hidden capitalize font-medium'>Order ID: </span>
-                                <span className='uppercase text-primary font-semibold text-lg '>65542848452</span>
-                            </td>
-                            <td>
-                                <span className='md:hidden capitalize font-medium'>Customer: </span>
-                                <span className='uppercase font-semibold text-lg '>Jhon Denver</span>
-                            </td>
-                            <td>
-                                <span className='md:hidden capitalize font-medium'>Address: </span>
-                                <span className='uppercase font-semibold text-lg '>1614 E. Erwin St #104.</span>
-                            </td>
+                        <tbody>
 
-                            <td>
-                                <span className='md:hidden capitalize font-medium'>Total: </span>
-                                <span className='uppercase font-semibold text-xl '>$ 38.8</span>
-                            </td>
-                        </tr>
+                            <tr className='flex flex-col md:table-row pb-8 md:pb-0 '>
+                                <td>
+                                    <span className='md:hidden capitalize font-medium'>Order ID: </span>
+                                    <span className='uppercase text-primary font-semibold text-lg '>{order?._id}</span>
+                                </td>
+                                <td>
+                                    <span className='md:hidden capitalize font-medium'>Customer: </span>
+                                    <span className='uppercase font-semibold text-lg '>{order?.customer}</span>
+                                </td>
+                                <td>
+                                    <span className='md:hidden capitalize font-medium'>Address: </span>
+                                    <span className='uppercase font-semibold text-lg '>{order?.address}</span>
+                                </td>
+
+                                <td>
+                                    <span className='md:hidden capitalize font-medium'>Total: </span>
+                                    <span className='uppercase font-semibold text-xl '>$ {order?.total}</span>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
                 <div className="row grid grid-cols-2 md:grid-cols-4 items-center w-[80%] py-6 md:py-0 mx-auto md:mx-0 ">
@@ -95,3 +100,9 @@ export default function Orders() {
         </div>
     )
 }
+export const getServerSideProps = async ({ params }) => {
+    const res = await axios.get(`http://localhost:3000/api/orders/${params.id}`);
+    return {
+        props: { order: res.data },
+    };
+};

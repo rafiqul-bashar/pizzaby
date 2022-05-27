@@ -21,7 +21,9 @@
     "**/*.tsx",
     "components/Navbar.jsx",
     "components/Footer.jsx",
-    "components/Layout.js"
+    "components/Layout.js",
+    "pages/index.jsx",
+    "pages/_app.jsx"
   ],
   "exclude": ["node_modules"]
 }

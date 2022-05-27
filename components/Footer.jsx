@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 
 export default function Footer() {
-  return <footer className="h-auto  md:h-[calc(100vh-100px)] bg-[#222] flex">
+  return <footer id='contact' className="h-auto  md:h-[calc(100vh-100px)] bg-[#222] flex">
     <div style={{ flex: 1 }} className="relative hidden md:flex">
       <Image src="/assets/bg.png" objectFit="cover" layout="fill" alt="" />
     </div>
