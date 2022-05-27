@@ -15,7 +15,7 @@ export default function EditProduct() {
 
     useEffect(() => {
         const fetchSinglePizza = async (id) => {
-            const res = await axios.get("http://localhost:3000/api/products/" + id)
+            const res = await axios.get("https://pizzaby.vercel.app/api/products/" + id)
             setPizza(res.data)
         }
         fetchSinglePizza(id)
@@ -57,7 +57,7 @@ export default function EditProduct() {
                     img: url,
                 };
 
-                await axios.put("http://localhost:3000/api/products/" + singlePizzaId, updatedProduct);
+                await axios.put("https://pizzaby.vercel.app/api/products/" + singlePizzaId, updatedProduct);
                 setClose(true);
             }
             const updatedProduct = {
@@ -67,7 +67,7 @@ export default function EditProduct() {
                 extraOptions,
             };
 
-            await axios.put("http://localhost:3000/api/products/" + singlePizzaId, updatedProduct);
+            await axios.put("https://pizzaby.vercel.app/api/products/" + singlePizzaId, updatedProduct);
             setClose(true);
         } catch (err) {
             console.log(err);

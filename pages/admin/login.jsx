@@ -13,7 +13,7 @@ export default function Login() {
 
     const handleLogin = async () => {
         try {
-            const res = await axios.post("http://localhost:3000/api/login", {
+            const res = await axios.post("https://pizzaby.vercel.app/api/login", {
                 username,
                 password,
             })

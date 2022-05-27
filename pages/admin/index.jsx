@@ -30,7 +30,7 @@ export default function index({ products, orders }) {
 
     const handleDelete = async (id) => {
         try {
-            const res = await axios.delete(`http://localhost:3000/api/products/${id}`)
+            const res = await axios.delete(`https://pizzaby.vercel.app/api/products/${id}`)
             setPizzalist(pizzalist.filter(pizza => pizza._id !== id))
         } catch (error) {
             console.log(error);
@@ -47,7 +47,7 @@ export default function index({ products, orders }) {
         }
         if (currentStatus !== 2) {
             try {
-                const res = await axios.put(`http://localhost:3000/api/orders/${id}`, { status: currentStatus + 1 })
+                const res = await axios.put(`https://pizzaby.vercel.app/api/orders/${id}`, { status: currentStatus + 1 })
                 setOrderlist([
                     res.data,
                     ...orderlist.filter(order => order._id !== id)
@@ -150,8 +150,8 @@ export default function index({ products, orders }) {
     )
 }
 export const getServerSideProps = async () => {
-    const productsRes = await axios.get("http://localhost:3000/api/products")
-    const ordersRes = await axios.get("http://localhost:3000/api/orders")
+    const productsRes = await axios.get("https://pizzaby.vercel.app/api/products")
+    const ordersRes = await axios.get("https://pizzaby.vercel.app/api/orders")
     return {
         props: {
             products: productsRes.data,
