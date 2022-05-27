@@ -1,13 +1,17 @@
 
 import axios from 'axios'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
-import { Featured, ProductList,AddProduct, AddBtn } from '../components'
+import { Featured, ProductList} from '../components'
 export default function Home  ({products}) {
  
-  // const user = useSelector((state) => state.user);
+ const [allProducts,setAllProducts]=useState([])
+ useEffect(() => {
+  setAllProducts(products)
+ }, [])
+ 
   
   return (
     <>
@@ -18,7 +22,7 @@ export default function Home  ({products}) {
       </Head>
       <Featured />
       <section id='products'>
-      <ProductList products={products}/>
+      <ProductList products={allProducts}/>
       </section>
     </>
   )

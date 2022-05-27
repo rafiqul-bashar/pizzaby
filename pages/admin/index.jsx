@@ -8,12 +8,12 @@ export default function index({ products, orders }) {
 
     const [pizzalist, setPizzalist] = useState(products)
     const [orderlist, setOrderlist] = useState(orders)
-    const [disabledBtn, setDisabledBtn] = useState(false)
+    
     const status = ["preparing", "on the way", "delivered"]
     const [close, setClose] = useState(true)
     const [deleteClose, setDeleteClose] = useState(true)
     const [singlePizzaId, setSinglePizzaId] = useState("")
-    const router =useRouter()
+    const router = useRouter()
     const admin = useSelector((state) => state.user.admin);
     React.useEffect(() => {
         if (!admin) {
@@ -41,22 +41,23 @@ export default function index({ products, orders }) {
 
     const handleStatus = async (id) => {
         const item = orderlist.filter(order => order._id === id)[0]
-        const currentStatus = item.status[0]
-
-        if (currentStatus == 1) {
-            setDisabledBtn(true)
+        const currentStatus = item.status
+        if (currentStatus === 2) {
+            return alert("Product Has Been Delivered")
         }
-        try {
-            const res = await axios.put(`http://localhost:3000/api/orders/${id}`, { status: currentStatus + 1 })
-            setOrderlist([
-                res.data,
+        if (currentStatus !== 2) {
+            try {
+                const res = await axios.put(`http://localhost:3000/api/orders/${id}`, { status: currentStatus + 1 })
+                setOrderlist([
+                    res.data,
+                    ...orderlist.filter(order => order._id !== id)
+                ])
 
-                ...orderlist.filter(order => order._id !== id)
-            ])
-            alert("Status Updated")
+                alert("Status Updated")
 
-        } catch (error) {
-            console.log(error);
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 
@@ -117,7 +118,7 @@ export default function index({ products, orders }) {
                                     <td>{order.method === 0 ? (<span>Cash</span>) : (<span>paid</span>)}</td>
                                     <td>{status[order.status]}</td>
                                     <td>
-                                        <button disabled={disabledBtn} onClick={() => handleStatus(order._id)} className='px-2 py-1 text-white bg-teal-500 disabled:opacity-50 disabled:cursor-not-allowed'>
+                                        <button onClick={() => handleStatus(order._id)} className='px-2 py-1 text-white bg-teal-500 disabled:opacity-50 disabled:cursor-not-allowed'>
                                             Next Stage
                                         </button>
                                     </td>

@@ -14,6 +14,7 @@ export default async function handler(req, res) {
     }
     if (method === "PUT") {
         try {
+            console.log(req.body);
             const order = await Order.findByIdAndUpdate(id, req.body, { new: true })
             res.status(200).json(order);
         } catch (err) {

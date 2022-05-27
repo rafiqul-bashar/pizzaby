@@ -3,7 +3,7 @@ import Image from 'next/image'
 import axios from 'axios';
 export default function Orders({ order }) {
     const status = order.status;
-    console.log(order);
+    
     const statusClass = index => {
         if (index - status < 1) return "orderDone"
         if (index - status === 1) return "orderInProgress"
